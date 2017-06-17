@@ -1,9 +1,9 @@
-##1. 本地：
-####1.1 创建本地git项目目录
+## 1. 本地：
+#### 1.1 创建本地git项目目录
 mkdir git-learning
 cd git-learning
 git init
-####1.2 创建密钥
+#### 1.2 创建密钥
 ssh-keygen -t rsa -C "your_email@youremail.com"
  这个地方请注意，它会在你选择的路径下上生成 ssh key，如果你直接点击回车，会在默认路径下创建 ssh 。如果你有多个项目，有工作的，有自己玩的，那么请配置不同的路径，或者一个路径换个文件名
  直接回车不设置密码
