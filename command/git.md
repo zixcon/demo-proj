@@ -10,25 +10,25 @@ ssh-keygen -t rsa -C "your_email@youremail.com"
 
 pbcopy < ~/.ssh/id_xxxx_rsa.pub
  作用是将你的 ssh 代码复制到剪贴板。
-2. github
-2.1 创建git项目目录
-2.2 设置密钥并验证
+## 2. github
+#### 2.1 创建git项目目录
+#### 2.2 设置密钥并验证
 ssh -T git@github.com
  permission denied,你就再执行命令：ssh-add ~/.ssh/id_xxxx_rsa
-3.本地
-3.1 设置账户
+## 3.本地
+#### 3.1 设置账户
 git config --global user.name "your name"
 git config --global user.email "your_email@youremail.com"
-4. 上传测试
-4.1 测试
+## 4. 上传测试
+#### 4.1 测试
 touch test.txt
 git add test.txt
 git commit -m "更新测试"
 
 git remote add origin git@github.com:用户名/项目名.git 
 git push orgin master
-5. 问题解决
-5.1 error: failed to push some refs to 'git@github.com:zixcon/demo-proj.git'
+## 5. 问题解决
+#### 5.1 error: failed to push some refs to 'git@github.com:zixcon/demo-proj.git'
 原因： 
 GitHub远程仓库中的README.md文件不在本地仓库中。 
 解决方案：
