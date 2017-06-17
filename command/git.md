@@ -29,8 +29,8 @@ git remote add origin git@github.com:用户名/项目名.git
 git push orgin master
 ## 5. 问题解决
 #### 5.1 error: failed to push some refs to 'git@github.com:zixcon/demo-proj.git'
-** 原因： 
+原因： 
 GitHub远程仓库中的README.md文件不在本地仓库中。 
-**** 解决方案：
+解决方案：
 $ git pull --rebase origin master
 $ git push -u origin master
