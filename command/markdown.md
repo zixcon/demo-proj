@@ -15,9 +15,9 @@
 #### 引用 [>]
 > 这里是引用
 
-#### 图片链接 ![]()
-图片为：![](){ImgCap}{/ImgCap}
-链接为：[]()
+#### 图片链接 [![]()]
+图片为：![路飞](http://tupian.baike.com/s/路飞/xgtupian/1/1?target=a4_33_73_20300544157529148792734603637.jpg)
+链接为：[baidu](www.baidu.com)
 
 #### 表格
 | Tables        | Are           | Cool  |
@@ -26,9 +26,12 @@
 | col 2 is      | centered      |   $12 |
 | zebra stripes | are neat      |    $1 |
 
-#### 代码框 [']
-'this is my code
+#### 代码框 [`]
+`this is my code
 try this
-'
+`
 #### 分割线 [***]
 ***
+
+
+end
