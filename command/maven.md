@@ -2,7 +2,7 @@
 
 #### maven创建项目
 ##### 创建命令调整为：
-> mvn archetype:generate -DgroupId=com.demo -DartifactId=learning-web -Dversion=1.0.0-SNAPSHOT -Dpackage=com.demo -DarchetypeArtifactId=maven-archetype-webapp  -DarchetypeGroupId=org.apache.maven.archetypes -DinteractiveMode=false -DarchetypeCatalog=internal
+`mvn archetype:generate -DgroupId=com.demo -DartifactId=learning-web -Dversion=1.0.0-SNAPSHOT -Dpackage=com.demo -DarchetypeArtifactId=maven-archetype-webapp  -DarchetypeGroupId=org.apache.maven.archetypes -DinteractiveMode=false -DarchetypeCatalog=internal`
 
 ##### 示例(推荐)：
 ###### 父all： 
