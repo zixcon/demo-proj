@@ -22,13 +22,12 @@
 | ----------- |:--------------:|
 | maven-archetype-archetype | 一个样例原型 |
 | maven-archetype-j2ee-simple | 简单的J2EE应用程序样例 |
-| maven-archetype-mojoMaven | 插件样本的示例 | 
-| maven-archetype-pluginMaven | 插件样本 | 
-| maven-archetype-plugin-siteMave | 插件网站的样例 | 
-| maven-archetype-portletJSR-268 | 门户样例 | 
-| maven-archetype-quickstartMaven | 工程样例 | 
+| maven-archetype-mojo | Maven插件样本的示例 | 
+| maven-archetype-plugin | Maven插件样本 | 
+| maven-archetype-plugin-site | Maven插件网站的样例 | 
+| maven-archetype-portlet | JSR-268门户样例 | 
+| maven-archetype-quickstart | Maven工程样例 | 
 | maven-archetype-simple | 一个简单的Maven工程 | 
-| maven-archetype-siteMaven | 网站的样例，它演示了对诸如APT、XDoc和FML等文档类型的支持，
-并演示了如果把网站国际化（i18n） | 
-| maven-archetype-site-simpleMaven | 网站样例 | 
-| maven-archetype-webappMaven的Webapp | 工程样例 | 
+| maven-archetype-siteMaven | 网站的样例，它演示了对诸如APT、XDoc和FML等文档类型的支持，并演示了如果把网站国际化（i18n） | 
+| maven-archetype-site-simple | Maven网站样例 | 
+| maven-archetype-webapp | Maven的Webapp工程样例 | 
