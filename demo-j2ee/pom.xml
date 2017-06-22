@@ -16,6 +16,10 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <org.springframework.version>4.3.9.RELEASE</org.springframework.version>
+    <lombok.version>1.16.14</lombok.version>
+    <joda-time.version>2.6</joda-time.version>
+    <guava.version>19.0</guava.version>
   </properties>
   <modules>
     <module>demo-j2ee-common</module>
@@ -24,4 +28,65 @@
     <module>demo-j2ee-web</module>
     <module>demo-j2ee-facade</module>
   </modules>
+
+  <dependencies>
+
+
+
+    <!-- spring-context实现了Spring注入容器并且依赖：
+      spring-core,spring-expression,spring-aop以及spring-beans。
+      这些依赖包使容器可以支持Spring的一些核心技术：Spring核心组件,Spring EL表达式 (SpEL), 面向切面编程,JavaBean机制。
+    -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>${org.springframework.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+      <version>${org.springframework.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-aop</artifactId>
+      <version>${org.springframework.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-beans</artifactId>
+      <version>${org.springframework.version}</version>
+    </dependency>
+
+
+    <!-- 增加Spring Web和Servlet支持-->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+      <version>${org.springframework.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+      <version>${org.springframework.version}</version>
+    </dependency>
+
+    <!-- 3rd util -->
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>${guava.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>joda-time</groupId>
+      <artifactId>joda-time</artifactId>
+      <version>${joda-time.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>${lombok.version}</version>
+    </dependency>
+
+  </dependencies>
 </project>
