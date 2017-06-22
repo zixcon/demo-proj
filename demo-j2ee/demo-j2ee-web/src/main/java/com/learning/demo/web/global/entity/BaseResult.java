@@ -1,4 +1,4 @@
-package com.learning.demo.global.entity;
+package com.learning.demo.web.global.entity;
 
 import lombok.Data;
 

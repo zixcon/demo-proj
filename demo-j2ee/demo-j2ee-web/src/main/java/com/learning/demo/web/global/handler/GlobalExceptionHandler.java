@@ -1,8 +1,8 @@
-package com.learning.demo.global;
+package com.learning.demo.web.global.handler;
 
 
 import com.google.common.base.Strings;
-import com.learning.demo.global.entity.BaseResult;
+import com.learning.demo.web.global.entity.BaseResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
