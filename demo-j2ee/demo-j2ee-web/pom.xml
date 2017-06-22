@@ -2,11 +2,13 @@
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
+
   <parent>
     <groupId>com.learning.demo</groupId>
     <artifactId>demo-j2ee</artifactId>
     <version>1.0.0-SNAPSHOT</version>
   </parent>
+
   <groupId>com.learning.demo.web</groupId>
   <artifactId>demo-j2ee-web</artifactId>
   <version>1.0.0-SNAPSHOT</version>
@@ -15,13 +17,44 @@
   <url>http://maven.apache.org</url>
 
   <properties>
-    <org.springframework.version>4.3.9.RELEASE</org.springframework.version>
   </properties>
 
   <dependencies>
 
+      <!--<dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-context</artifactId>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-core</artifactId>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-aop</artifactId>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-beans</artifactId>
+      </dependency>
+
+
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-web</artifactId>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-webmvc</artifactId>
+      </dependency>
+
+      <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+      </dependency>-->
 
   </dependencies>
+
   <build>
     <finalName>demo-j2ee-web</finalName>
   </build>

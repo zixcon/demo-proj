@@ -15,12 +15,16 @@
   </distributionManagement>-->
 
   <properties>
+    <java.version>1.8</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <org.springframework.version>4.3.9.RELEASE</org.springframework.version>
-    <lombok.version>1.16.14</lombok.version>
+    <lombok.version>1.16.16</lombok.version>
     <joda-time.version>2.6</joda-time.version>
     <guava.version>19.0</guava.version>
+    <logback.version>1.2.3</logback.version>
+    <servlet-api.version>2.5</servlet-api.version>
   </properties>
+
   <modules>
     <module>demo-j2ee-common</module>
     <module>demo-j2ee-dal</module>
@@ -71,6 +75,21 @@
       <version>${org.springframework.version}</version>
     </dependency>
 
+    <!-- servlet -->
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <version>${servlet-api.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- SLF4J ＆ Logback -->
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>${logback.version}</version>
+    </dependency>
+
     <!-- 3rd util -->
     <dependency>
       <groupId>com.google.guava</groupId>
@@ -86,6 +105,7 @@
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <version>${lombok.version}</version>
+      <scope>provided</scope>
     </dependency>
 
   </dependencies>
