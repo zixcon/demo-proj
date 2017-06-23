@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 注册一个RequestMappingHandlerAdapter的bean，这个bean能够处理@RequestMapping这个注解 -->
+    <mvc:annotation-driven/>
+
+    <!-- 让一些静态的不被springmvc拦截, 静态资源由WEB服务器默认的Servlet来处理 -->
+    <!-- 如果把web.xml中将DispatcherServlet配置为拦截所有请求，包括静态和动态的
+        那么，在applicationContext中就得加上<mvc:default-servlet-handler />或者<mvc:resources 加些静态资源映射配置/>，才能访问到静态资源。
+        否则的话，web.xml中就得用类似于*.do或者*.html的方式配置<url-pattern>
+    -->
+    <!-- 这个标签起作用的前提就是需要我们把静态资源放在webapp下，而非WEB-INF下，否则还是会无效 -->
+    <mvc:default-servlet-handler/>
+
+    <!-- (1)默认扫描的包路径 -->
+    <context:component-scan base-package="com.learning.demo.web.controller.**"/>
+
+    <!-- (2)定义视图解析器
+        class="org.springframework.web.servlet.view.UrlBasedViewResolver"（基于URL的视图解析器）：老版本使用的，利用创建1个视图解析工具类对象的方式
+        Controller中方法return返回的视图，拼接前后缀，得到结果结果页面地址，因为页面放在WEB-INF下，必须以这种方式访问。
+     -->
+    <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+        <property name="viewResolvers">
+            <list>
+                <bean class="org.springframework.web.servlet.view.BeanNameViewResolver"/>
+                <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+                    <property name="prefix" value="/WEB-INF/jsp/"/>
+                    <property name="suffix" value=".jsp"/>
+                </bean>
+            </list>
+        </property>
+        <property name="defaultViews">
+            <list>
+                <bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+    <mvc:annotation-driven>
+        <!-- 处理responseBody 里面日期类型 -->
+        <!-- 全局设置json响应的日期格式，但此方法可以和@JsonFormat共存，也就是说可以全局设置一个格式，特定的需求可以使用注解设置 -->
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="objectMapper">
+                    <bean class="com.fasterxml.jackson.databind.ObjectMapper">
+                        <property name="dateFormat">
+                            <bean class="java.text.SimpleDateFormat">
+                                <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss" />
+                            </bean>
+                        </property>
+                    </bean>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <!-- springmvc 拦截器设置 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.learning.demo.web.global.interceptor.AccessLogInterceptor" id="accessLogInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+</beans>

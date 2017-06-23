@@ -1,24 +1,37 @@
 package com.learning.demo.web.controller.hello;
 
 import com.google.common.base.Preconditions;
+import com.learning.demo.web.global.entity.BaseResult;
 import com.learning.demo.web.vo.HelloWorldVO;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
+
 /**
  * Created by topaz on 2017/6/22.
  */
-@RestController("/hello")
+@RestController
+@RequestMapping("/hello")
 public class HelloController {
 
     @RequestMapping("/say")
-    public HelloWorldVO sayHelloWorld(HelloWorldVO say) {
-        return say;
+    public BaseResult<HelloWorldVO> sayHelloWorld(HelloWorldVO say) {
+        BaseResult<HelloWorldVO> result = new BaseResult<>();
+        result.setData(say);
+        return result;
     }
 
     @RequestMapping("/err")
-    public HelloWorldVO errTest(HelloWorldVO say) {
-        Preconditions.checkArgument(false,"这里是异常提示信息");
-        return say;
+    public BaseResult<HelloWorldVO> errTest(HelloWorldVO say) {
+        BaseResult<HelloWorldVO> result = new BaseResult<>();
+        Preconditions.checkArgument(false, "这里是异常提示信息");
+        result.setData(say);
+        return result;
+    }
+
+    @RequestMapping("date")
+    public Date getDate() {
+        return new Date();
     }
 }
