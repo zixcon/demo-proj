@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+
+    <!--  参照：http://blog.csdn.net/ochangwen/article/details/52558774 -->
+    <!--  1. 申明事物 ：start -->
+
+    <!-- a PlatformTransactionManager is still required 声明式事务管理 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!-- (this dependency is defined somewhere else) -->
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+
+    <!--  配置事务传播特性 isolation="READ_COMMITTED" -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="get*" propagation="SUPPORTS" read-only="true"  rollback-for="java.lang.Exception" />
+            <tx:method name="fetch*" propagation="SUPPORTS" read-only="true"  rollback-for="java.lang.Exception" />
+            <tx:method name="insert*" propagation="REQUIRED" read-only="false"  rollback-for="java.lang.Exception" />
+            <tx:method name="save*" propagation="REQUIRED" read-only="false"    rollback-for="java.lang.Exception" />
+            <tx:method name="add*" propagation="REQUIRED" read-only="false"    rollback-for="java.lang.Exception" />
+            <tx:method name="update*" propagation="REQUIRED" read-only="false"    rollback-for="java.lang.Exception" />
+            <tx:method name="delete*" propagation="REQUIRED" read-only="false"  rollback-for="java.lang.Exception" />
+            <tx:method name="remove*" propagation="REQUIRED" read-only="false"  rollback-for="java.lang.Exception" />
+            <tx:method name="*" read-only="true" rollback-for="java.lang.Exception" />
+        </tx:attributes>
+    </tx:advice>
+
+    <!--  声明了事务通知后, 就需要将它与切入点关联起来.由于事务通知是在<aop:config>元素外部声明的,所以它无法直接与切入点产生关联.
+          所以必须在 <aop:config> 元素中声明一个增强器通知与切入点关联起来. -->
+    <aop:config expose-proxy="true" proxy-target-class="true">
+        <!-- 定义在service包和所有子包里的任意类的任意方法的执行 -->
+        <aop:pointcut id="txPointcut" expression="execution(* com.learning.demo..service..*.*(..))" />
+        <aop:advisor pointcut-ref="txPointcut" advice-ref="txAdvice"/>
+    </aop:config>
+
+    <!--  1. 申明事物 ：end -->
+    <!--  2. 注解事物 ：start -->
+
+    <!-- enable the configuration of transactional behavior based on annotations -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <!--  2. 注解事物 ：end -->
+
+
+    <import resource="classpath*:spring/spring-db.xml"/>
+</beans>
