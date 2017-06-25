@@ -42,4 +42,27 @@
 
     </bean>
 
+
+    <!-- mybatis 集成 -->
+    <!--
+        1. mybatis的SqlSession的工厂: SqlSessionFactoryBean dataSource:引用数据源
+        MyBatis定义数据源,同意加载配置
+    -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!-- 数据源 -->
+        <property name="dataSource" ref="dataSource"/>
+        <!-- 加载mybatis的全局配置文件 -->
+        <property name="configLocation" value="classpath:config/sqlMapConfig.xml" />
+    </bean>
+    <!--
+        2. mybatis自动扫描加载Sql映射文件/接口 : MapperScannerConfigurer sqlSessionFactory
+        basePackage:指定sql映射文件/接口所在的包（自动扫描）
+    -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- 扫描包路径,如果需要扫描多个包中间用半角逗号隔开 -->
+        <property name="basePackage" value="mapper"/>
+        <!-- 这边不能使用ref="sqlSessionFactory"原因是因为上面加载配置文件导致这边引用会报错 -->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+    </bean>
+
 </beans>
