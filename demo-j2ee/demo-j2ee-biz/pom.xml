@@ -14,16 +14,21 @@
   <url>http://maven.apache.org</url>
   <properties>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-      <module.version>1.0.0-SNAPSHOT</module.version>
   </properties>
-  <dependencies>
 
-    <dependency>
-      <groupId>com.learning.demo.dal</groupId>
-      <artifactId>demo-j2ee-dal</artifactId>
-      <version>${module.version}</version>
-    </dependency>
+  <dependencyManagement>
+    <dependencies>
 
-  </dependencies>
+      <dependency>
+        <groupId>com.learning.demo.dal</groupId>
+        <artifactId>demo-j2ee-dal</artifactId>
+      </dependency>
 
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <scope>test</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 </project>

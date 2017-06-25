@@ -17,19 +17,23 @@
   <url>http://maven.apache.org</url>
 
   <properties>
-      <module.version>1.0.0-SNAPSHOT</module.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
-  <dependencies>
-
-      <dependency>
+    <dependencyManagement>
+      <dependencies>
+        <dependency>
           <groupId>com.learning.demo.biz</groupId>
           <artifactId>demo-j2ee-biz</artifactId>
-          <version>${module.version}</version>
-      </dependency>
+        </dependency>
 
-
-  </dependencies>
+        <dependency>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+          <scope>test</scope>
+        </dependency>
+      </dependencies>
+    </dependencyManagement>
 
   <build>
     <finalName>demo-j2ee-web</finalName>
@@ -42,16 +46,6 @@
             <source>1.8</source>
             <target>1.8</target>
           </configuration>
-        </plugin>
-        <!-- mybatis 代码自动生成 -->
-        <plugin>
-            <groupId>org.mybatis.generator</groupId>
-            <artifactId>mybatis-generator-maven-plugin</artifactId>
-            <version>${mybatis-generator.version}</version>
-            <configuration>
-                <verbose>true</verbose>
-                <overwrite>true</overwrite>
-            </configuration>
         </plugin>
     </plugins>
   </build>
