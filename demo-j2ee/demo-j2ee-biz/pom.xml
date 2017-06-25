@@ -22,7 +22,13 @@
       <dependency>
         <groupId>com.learning.demo.dal</groupId>
         <artifactId>demo-j2ee-dal</artifactId>
+        <version>${project.version}</version>
       </dependency>
+      <dependency>
+        <groupId>com.learning.demo.common</groupId>
+        <artifactId>demo-j2ee-common</artifactId>
+        <version>${project.version}</version>
+    </dependency>
 
       <dependency>
         <groupId>junit</groupId>
@@ -31,4 +37,16 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
+
+  <!-- 父子关系继承插件配置， -->
+  <!-- 父模块定义了plugin ,子模块如果想引入这个插件，如下声明即可，它同时又继承了父模块的配置 -->
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+
 </project>

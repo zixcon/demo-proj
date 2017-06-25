@@ -23,8 +23,9 @@
     <dependencyManagement>
       <dependencies>
         <dependency>
-          <groupId>com.learning.demo.biz</groupId>
-          <artifactId>demo-j2ee-biz</artifactId>
+            <groupId>com.learning.demo.biz</groupId>
+            <artifactId>demo-j2ee-biz</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
