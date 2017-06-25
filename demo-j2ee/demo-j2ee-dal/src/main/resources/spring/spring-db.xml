@@ -44,6 +44,7 @@
 
 
     <!-- mybatis 集成 -->
+    <!-- 三种整合方法：http://www.cnblogs.com/wangmingshun/p/5674633.html -->
     <!--
         1. mybatis的SqlSession的工厂: SqlSessionFactoryBean dataSource:引用数据源
         MyBatis定义数据源,同意加载配置
@@ -52,7 +53,9 @@
         <!-- 数据源 -->
         <property name="dataSource" ref="dataSource"/>
         <!-- 加载mybatis的全局配置文件 -->
-        <property name="configLocation" value="classpath:config/sqlMapConfig.xml" />
+        <!--<property name="configLocation" value="classpath:config/sqlMapConfig.xml" />-->
+        <!-- 自动扫描entity目录, 省掉Configuration.xml里的手工配置 -->
+        <property name="mapperLocations" value="classpath:mapper/**/*Mapper.xml" />
     </bean>
     <!--
         2. mybatis自动扫描加载Sql映射文件/接口 : MapperScannerConfigurer sqlSessionFactory
@@ -60,7 +63,7 @@
     -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <!-- 扫描包路径,如果需要扫描多个包中间用半角逗号隔开 -->
-        <property name="basePackage" value="mapper"/>
+        <property name="basePackage" value="com.learning.demo.**.dao"/>
         <!-- 这边不能使用ref="sqlSessionFactory"原因是因为上面加载配置文件导致这边引用会报错 -->
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
     </bean>
