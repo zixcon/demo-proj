@@ -18,7 +18,7 @@
         <!-- 配置初始化大小、最小、最大 -->
         <property name="initialSize" value="1" />
         <property name="minIdle" value="1" />
-        <property name="maxActive" value="20" />
+        <property name="maxActive" value="10" />
 
         <!-- 配置获取连接等待超时的时间 -->
         <property name="maxWait" value="60000" />
@@ -52,10 +52,10 @@
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <!-- 数据源 -->
         <property name="dataSource" ref="dataSource"/>
-        <!-- 加载mybatis的全局配置文件 -->
-        <!--<property name="configLocation" value="classpath:config/sqlMapConfig.xml" />-->
+        <!-- 文件映射器，指定类文件 -->
+        <property name="configLocation" value="classpath:mybatis/mybatis-config.xml"/>
         <!-- 自动扫描entity目录, 省掉Configuration.xml里的手工配置 -->
-        <property name="mapperLocations" value="classpath:mapper/*Mapper.xml" />
+        <property name="mapperLocations" value="classpath:mapper/*.xml" />
     </bean>
     <!--
         2. mybatis自动扫描加载Sql映射文件/接口 : MapperScannerConfigurer sqlSessionFactory
@@ -63,6 +63,7 @@
     -->
     <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <!-- 扫描包路径,如果需要扫描多个包中间用半角逗号隔开 -->
+        <!-- 为spring自扫描所有dao包并把其下的所有mybatis接口文件装配入容器 -->
         <property name="basePackage" value="com.learning.demo.dal.dao"/>
         <!-- 这边不能使用ref="sqlSessionFactory"原因是因为上面加载配置文件导致这边引用会报错 -->
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />

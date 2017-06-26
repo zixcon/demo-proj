@@ -16,19 +16,78 @@
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
-  <dependencyManagement>
-    <dependencies>
-
-      <dependency>
-        <groupId>com.learning.demo.dal</groupId>
-        <artifactId>demo-j2ee-dal</artifactId>
-        <version>${project.version}</version>
-      </dependency>
+  <dependencies>
       <dependency>
         <groupId>com.learning.demo.common</groupId>
         <artifactId>demo-j2ee-common</artifactId>
-        <version>${project.version}</version>
-    </dependency>
+      </dependency>
+      <dependency>
+        <groupId>com.learning.demo.dal</groupId>
+        <artifactId>demo-j2ee-dal</artifactId>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-core</artifactId>
+        <exclusions>
+          <exclusion>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-aop</artifactId>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-beans</artifactId>
+      </dependency>
+
+
+      <!-- 增加Spring Web和Servlet支持-->
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-web</artifactId>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-webmvc</artifactId>
+      </dependency>
+
+      <!-- spring tx -->
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-tx</artifactId>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-jdbc</artifactId>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-aspects</artifactId>
+      </dependency>
+
+      <!-- 3rd util -->
+      <dependency>
+          <groupId>com.google.guava</groupId>
+          <artifactId>guava</artifactId>
+      </dependency>
+      <dependency>
+          <groupId>joda-time</groupId>
+          <artifactId>joda-time</artifactId>
+      </dependency>
+      <dependency>
+          <groupId>org.projectlombok</groupId>
+          <artifactId>lombok</artifactId>
+          <scope>provided</scope>
+      </dependency>
 
       <dependency>
         <groupId>junit</groupId>
@@ -36,17 +95,5 @@
         <scope>test</scope>
       </dependency>
     </dependencies>
-  </dependencyManagement>
-
-  <!-- 父子关系继承插件配置， -->
-  <!-- 父模块定义了plugin ,子模块如果想引入这个插件，如下声明即可，它同时又继承了父模块的配置 -->
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-      </plugin>
-    </plugins>
-  </build>
 
 </project>

@@ -51,16 +51,21 @@ public class GlobalExceptionHandler {
         } else if (e instanceof BindException) {
             bind = ((BindException) e).getBindingResult();
         }
-        StringBuffer stringBuffer = new StringBuffer();
-        if ( null != bind) {
-            List<ObjectError> errList = bind.getAllErrors();
-            for (ObjectError err: errList) {
-                if (!Strings.isNullOrEmpty(err.getDefaultMessage())) {
-                    stringBuffer.append(err.getDefaultMessage()).append("\n");
-                }
-            }
+        String err = null;
+        if (null != bind && bind.hasErrors()) {
+            err = bind.getFieldError().getDefaultMessage();
         }
-        String errMsg = Strings.isNullOrEmpty(stringBuffer.toString()) ? "请检查参数正确性" : stringBuffer.toString();
+//        StringBuffer stringBuffer = new StringBuffer();
+//        if ( null != bind) {
+//            List<ObjectError> errList = bind.getAllErrors();
+//            for (ObjectError err: errList) {
+//                if (!Strings.isNullOrEmpty(err.getDefaultMessage())) {
+//                    stringBuffer.append(err.getDefaultMessage()).append("\n");
+//                }
+//            }
+//        }
+//        String errMsg = Strings.isNullOrEmpty(stringBuffer.toString()) ? "请检查参数正确性" : stringBuffer.toString();
+        String errMsg = Strings.isNullOrEmpty(err) ? "请检查参数正确性" : err;
         return this.handleBaseResult("-1", errMsg);
     }
 

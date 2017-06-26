@@ -32,6 +32,7 @@
     <mybatis.version>3.4.4</mybatis.version>
     <mybatis-spring.version>1.3.1</mybatis-spring.version>
     <mybatis-generator.version>1.3.5</mybatis-generator.version>
+    <swagger.version>2.6.1</swagger.version>
   </properties>
 
   <modules>
@@ -42,8 +43,35 @@
     <module>demo-j2ee-facade</module>
   </modules>
 
+  <dependencyManagement>
   <dependencies>
 
+    <!-- proj -->
+    <dependency>
+      <groupId>com.learning.demo.common</groupId>
+      <artifactId>demo-j2ee-common</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.learning.demo.dal</groupId>
+      <artifactId>demo-j2ee-dal</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.learning.demo.biz</groupId>
+      <artifactId>demo-j2ee-biz</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.learning.demo.web</groupId>
+      <artifactId>demo-j2ee-web</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.learning.demo.facade</groupId>
+      <artifactId>demo-j2ee-facade</artifactId>
+      <version>${project.version}</version>
+    </dependency>
 
 
     <!-- spring-context实现了Spring注入容器并且依赖：
@@ -213,6 +241,18 @@
       <version>${mybatis-generator.version}</version>
     </dependency>
 
+    <!-- swagger -->
+    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-swagger2</artifactId>
+      <version>${swagger.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-swagger-ui</artifactId>
+      <version>${swagger.version}</version>
+    </dependency>
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -220,4 +260,47 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <!-- jdk -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.1</version>
+          <configuration>
+            <source>${java.version}</source>
+            <target>${java.version}</target>
+            <encoding>UTF-8</encoding>
+          </configuration>
+        </plugin>
+        <!-- resource -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>3.0.1</version>
+          <configuration>
+            <encoding>UTF-8</encoding>
+          </configuration>
+        </plugin>
+        <!-- skip junit testcase. -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <configuration>
+            <skip>true</skip>
+          </configuration>
+          <version>2.19.1</version>
+        </plugin>
+        <!-- jar -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>2.6</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
 </project>

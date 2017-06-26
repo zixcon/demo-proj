@@ -1,0 +1,13 @@
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- 参照：http://blog.csdn.net/u014593633/article/details/51888674 -->
+
+
+    <!--plugins插件之 分页拦截器  -->
+    <!--<plugins>
+        <plugin interceptor="com.xhm.util.PageInterceptor"></plugin>
+    </plugins>-->
+
+
+</configuration>
