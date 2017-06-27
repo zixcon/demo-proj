@@ -80,4 +80,9 @@
         </mvc:argument-resolvers>
     </mvc:annotation-driven>
     -->
+
+    <!--  swagger2 启用配置-->
+    <!-- swagger2 需要在spring mvc中配置启用，原因是配置类必须和mvc处于同一个上下文中
+         http://blog.csdn.net/qq_25615395/article/details/70229139 -->
+    <bean class="com.learning.demo.web.global.swagger.SwaggerConfig"/>
 </beans>
