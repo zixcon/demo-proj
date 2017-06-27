@@ -1,6 +1,6 @@
-package com.learning.demo.biz.user.impl;
+package com.learning.demo.biz.service.user.impl;
 
-import com.learning.demo.biz.user.UserInfoService;
+import com.learning.demo.biz.service.user.UserInfoService;
 import com.learning.demo.dal.dao.UserInfoMapper;
 import com.learning.demo.dal.model.UserInfo;
 import com.learning.demo.dal.model.UserInfoExample;

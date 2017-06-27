@@ -1,4 +1,4 @@
-package com.learning.demo.biz.user;
+package com.learning.demo.biz.service.user;
 
 import com.learning.demo.dal.model.UserInfo;
 

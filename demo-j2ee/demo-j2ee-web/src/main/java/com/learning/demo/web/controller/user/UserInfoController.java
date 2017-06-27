@@ -1,10 +1,9 @@
 package com.learning.demo.web.controller.user;
 
-import com.learning.demo.biz.user.UserInfoService;
+import com.learning.demo.biz.service.user.UserInfoService;
 import com.learning.demo.dal.model.UserInfo;
 import com.learning.demo.web.global.entity.BaseResult;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -40,7 +39,7 @@ public class UserInfoController {
     }
 
     @RequestMapping("/saveUserInfo")
-    public BaseResult<Object> saveUserInfo(UserInfo userInfo) {
+    public BaseResult<Object> saveUserInfo(@RequestBody UserInfo userInfo) {
         BaseResult<Object> result = new BaseResult<>();
         userInfoService.saveUserInfo(userInfo);
         return result;

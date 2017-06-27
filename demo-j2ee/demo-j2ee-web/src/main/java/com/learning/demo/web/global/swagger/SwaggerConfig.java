@@ -13,16 +13,16 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * http://localhost:8080/${contextpath}/swagger-ui.html
  * Created by topaz on 2017/6/26.
  */
-//@Configuration
-//@EnableSwagger2
-//public class SwaggerConfig {
-//
-//    @Bean
-//    public Docket api() {
-//        return new Docket(DocumentationType.SWAGGER_2)
-//                .select()
-//                .apis(RequestHandlerSelectors.any())
-//                .paths(PathSelectors.any())
-//                .build();
-//    }
-//}
+/*@Configuration
+@EnableSwagger2
+public class SwaggerConfig {
+
+    @Bean
+    public Docket api() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .select()
+                .apis(RequestHandlerSelectors.any())
+                .paths(PathSelectors.any())
+                .build();
+    }
+}*/

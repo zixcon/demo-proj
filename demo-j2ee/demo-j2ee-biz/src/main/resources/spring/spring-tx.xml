@@ -41,7 +41,7 @@
           所以必须在 <aop:config> 元素中声明一个增强器通知与切入点关联起来. -->
     <aop:config expose-proxy="true" proxy-target-class="true">
         <!-- 定义在service包和所有子包里的任意类的任意方法的执行 -->
-        <aop:pointcut id="txPointcut" expression="execution(* com.learning.demo..service..*.*(..))" />
+        <aop:pointcut id="txPointcut" expression="execution(* com.learning.demo.biz.service..*.*(..))" />
         <aop:advisor pointcut-ref="txPointcut" advice-ref="txAdvice"/>
     </aop:config>
 
