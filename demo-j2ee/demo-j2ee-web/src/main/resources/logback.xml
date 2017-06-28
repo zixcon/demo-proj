@@ -1,11 +1,50 @@
-<configuration>
-        　　　　　　<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-    　　　　　　<encoder>
-    　　　　　　　　<pattern>%-4relative [%thread] %-5level %logger{35} - %msg %n</pattern>
-    　　　　　　</encoder>
-    　　　　　　</appender>
+<configuration scan="true" scanPeriod="60 seconds" debug="true">
 
-        　　　　　　<root level="DEBUG">
-　　　　　<appender-ref ref="STDOUT" />
-　　</root>
+    <property name="LOG_PATH" value="/Users/topaz/Documents/dev/git/learning/logs" />
+    <property name="APP_NAME" value="demo-j2ee" />
+    <contextName>${APP_NAME}</contextName>
+
+    <!-- ch.qos.logback.core.ConsoleAppender 控制台输出 -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %logger{36} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <!-- ch.qos.logback.core.rolling.RollingFileAppender 文件日志输出 -->
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <Encoding>UTF-8</Encoding>
+        <File>${LOG_PATH}/${APP_NAME}.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${LOG_PATH}/${APP_NAME}-%d{yyyy-MM-dd}.log
+            </FileNamePattern>
+            <MaxHistory>10</MaxHistory>
+            <TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <MaxFileSize>1MB</MaxFileSize>
+            </TimeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %logger{36} - %msg%n
+            </pattern>
+        </layout>
+    </appender>
+
+    <!-- 日志级别 -->
+    <root>
+        <!-- 定义了ERROR和INFO级别的日志，分别在FILE文件和控制台输出 -->
+        <level value="error" />
+        <level value="info" />
+        <level value="debug" />
+        <appender-ref ref="file" />
+        <appender-ref ref="console" />
+    </root>
+
+    <!-- 精确设置每个包下面的日志 -->
+    <logger name="com.learning.demo.web.global" additivity="false">
+        <level value="info" />
+        <level value="error" />
+        <appender-ref ref="file" />
+        <appender-ref ref="console" />
+    </logger>
 </configuration>
