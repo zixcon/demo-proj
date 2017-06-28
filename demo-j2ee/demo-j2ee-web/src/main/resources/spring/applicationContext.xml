@@ -10,4 +10,5 @@
     <context:property-placeholder location="classpath*:*.properties"/>
 
     <import resource="classpath*:spring/spring-tx.xml"/>
+    <import resource="classpath*:spring/spring-async.xml"/>
 </beans>
