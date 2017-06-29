@@ -1,5 +1,6 @@
 package com.learning.demo.biz.service.user.impl;
 
+import com.google.common.base.Strings;
 import com.learning.demo.biz.service.user.UserInfoService;
 import com.learning.demo.dal.dao.UserInfoMapper;
 import com.learning.demo.dal.model.UserInfo;
@@ -19,10 +20,12 @@ public class UserInfoServiceImpl implements UserInfoService{
     private UserInfoMapper userInfoMapper;
 
     public List<UserInfo> getUserInfoList(String name) {
-        UserInfoExample user = new UserInfoExample();
-        UserInfoExample.Criteria criteria = user.createCriteria();
-        criteria.andNameLike(name);
-        return userInfoMapper.selectByExample(user);
+        UserInfoExample example = new UserInfoExample();
+        UserInfoExample.Criteria criteria = example.createCriteria();
+        if (!Strings.isNullOrEmpty(name)) {
+            criteria.andNameLike("%" + name + "%");
+        }
+        return userInfoMapper.selectByExample(example);
     }
 
     @Override

@@ -72,8 +72,11 @@
     </appender>
 
     <!-- 日志级别 -->
-    <root level="debug">
+    <root>
         <!-- 定义了ERROR和INFO级别的日志，分别在FILE文件和控制台输出 -->
+        <level value="error" />
+        <level value="info" />
+        <appender-ref ref="file" />
         <appender-ref ref="console" />
     </root>
 
@@ -103,9 +106,7 @@
     -->
 
     <logger name="com.learning.demo" additivity="false">
-        <level value="error" />
-        <level value="info" />
-        <appender-ref ref="file" />
+        <level value="debug" />
         <appender-ref ref="console" />
     </logger>
 
