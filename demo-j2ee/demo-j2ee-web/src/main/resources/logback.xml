@@ -1,50 +1,114 @@
-<configuration scan="true" scanPeriod="60 seconds" debug="true">
+<!-- 参照：http://www.cnblogs.com/cb0327/p/5759441.html -->
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <!--
+      scan:
+        当此属性设置为true时，配置文件如果发生改变，将会被重新加载，默认值为true。
+      scanPeriod:
+        设置监测配置文件是否有修改的时间间隔，如果没有给出时间单位，默认单位是毫秒。当scan为true时，此属性生效。默认的时间间隔为1分钟。
+      debug:
+        当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态。默认值为false。
+    -->
 
-    <property name="LOG_PATH" value="/Users/topaz/Documents/dev/git/learning/logs" />
+
+    <property name="LOG_PATH" value="${catalina.base}/logs" />
     <property name="APP_NAME" value="demo-j2ee" />
+    <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%X{trackid}] [%X{hostname}] [%-5level] %logger{36} - %msg%n" />
     <contextName>${APP_NAME}</contextName>
+
+    <!--
+        1.设置loger
+            用来设置某一个包或者具体的某一个类的日志打印级别、以及指定<appender>。<loger>仅有一个name属性，一个可选的level和一个可选的addtivity属性。
+            name:用来指定受此loger约束的某一个包或者具体的某一个类。
+            level:用来设置打印级别，大小写无关：TRACE, DEBUG, INFO, WARN, ERROR, ALL 和 OFF，还有一个特俗值INHERITED或者同义词NULL，代表强制执行上级的级别。如果未设置此属性，那么当前loger将会继承上级的级别。
+            addtivity:是否向上级loger传递打印信息。默认是true。
+
+            <loger>可以包含零个或多个<appender-ref>元素，标识这个appender将会添加到这个loger。
+        2.设置root
+            也是<loger>元素，但是它是根loger。只有一个level属性，应为已经被命名为"root".
+            level:用来设置打印级别，大小写无关：TRACE, DEBUG, INFO, WARN, ERROR, ALL 和 OFF，不能设置为INHERITED或者同义词NULL。默认是DEBUG。
+
+            <root>可以包含零个或多个<appender-ref>元素，标识这个appender将会添加到这个loger。
+    -->
 
     <!-- ch.qos.logback.core.ConsoleAppender 控制台输出 -->
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %logger{36} - %msg%n
-            </pattern>
+            <pattern>${LOG_PATTERN}</pattern>
         </encoder>
     </appender>
 
     <!-- ch.qos.logback.core.rolling.RollingFileAppender 文件日志输出 -->
     <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <Encoding>UTF-8</Encoding>
-        <File>${LOG_PATH}/${APP_NAME}.log</File>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <FileNamePattern>${LOG_PATH}/${APP_NAME}-%d{yyyy-MM-dd}.log
-            </FileNamePattern>
-            <MaxHistory>10</MaxHistory>
+            <!-- 按天回滚 daily -->
+            <FileNamePattern>${LOG_PATH}/${APP_NAME}-%d{yyyy-MM-dd}-%i.log</FileNamePattern>
+            <!-- 日志最大的历史 30天 -->
+            <MaxHistory>30</MaxHistory>
             <TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <MaxFileSize>1MB</MaxFileSize>
             </TimeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
-        <layout class="ch.qos.logback.classic.PatternLayout">
-            <pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %logger{36} - %msg%n
-            </pattern>
-        </layout>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 访问日志 appender  -->
+    <appender name="access" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <Encoding>UTF-8</Encoding>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 按天回滚 daily -->
+            <fileNamePattern>${LOG_PATH}/${APP_NAME}-access-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
+            <!-- 日志最大的历史 60天 -->
+            <maxHistory>30</maxHistory>
+            <TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <MaxFileSize>1MB</MaxFileSize>
+            </TimeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
     </appender>
 
     <!-- 日志级别 -->
-    <root>
+    <root level="debug">
         <!-- 定义了ERROR和INFO级别的日志，分别在FILE文件和控制台输出 -->
-        <level value="error" />
-        <level value="info" />
-        <level value="debug" />
-        <appender-ref ref="file" />
         <appender-ref ref="console" />
     </root>
 
     <!-- 精确设置每个包下面的日志 -->
-    <logger name="com.learning.demo.web.global" additivity="false">
+
+    <!--
+        将控制com.learning.demo.web.global包下的所有类的日志的打印，但是并没用设置打印级别，所以继承他的上级<root>的日志级别“DEBUG”；
+        没有设置addtivity，默认为true，将此loger的打印信息向上级传递；
+        没有设置appender，此logger本身不打印任何信息。
+    -->
+    <!--
+    <logger name="com.learning.demo.web.global" additivity="true">
+    </logger>
+    -->
+    <!--
+        控制com.learning.demo.web.controller类的日志打印，打印级别为“INFO”；
+        additivity属性为false，表示此loger的打印信息不再向上级传递，
+        指定了名字为“STDOUT”的appender。
+    -->
+    <!--
+    <logger name="com.learning.demo.web.controller" additivity="false">
         <level value="info" />
         <level value="error" />
         <appender-ref ref="file" />
         <appender-ref ref="console" />
     </logger>
+    -->
+
+    <logger name="com.learning.demo" additivity="false">
+        <level value="error" />
+        <level value="info" />
+        <appender-ref ref="file" />
+        <appender-ref ref="console" />
+    </logger>
+
+    <!--<logger name="com.learning.demo" additivity="true">
+    </logger>-->
 </configuration>
