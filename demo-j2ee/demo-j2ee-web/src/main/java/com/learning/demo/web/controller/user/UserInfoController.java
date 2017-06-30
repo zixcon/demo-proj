@@ -24,8 +24,8 @@ public class UserInfoController {
     private UserInfoService userInfoService;
 
     @ApiOperation(value = "根据Id查询用户", notes = "第一个测试API")
-    @ApiImplicitParam(name = "id", value = "id", required = true, dataType = "Integer")
-    @RequestMapping("/getUserInfoById")
+    @ApiImplicitParam(name = "id", value = "id", required = true, dataType = "Long")
+    @RequestMapping(value="/getUserInfoById",method = RequestMethod.GET)
     public BaseResult<UserInfo> getUserInfoById(Long id) {
         BaseResult<UserInfo> result = new BaseResult<>();
         UserInfo userInfo = userInfoService.getUserInfoById(id);
@@ -33,7 +33,8 @@ public class UserInfoController {
         return result;
     }
 
-    @RequestMapping("/getUserInfoList")
+    @ApiOperation(value = "根据name查询用户", notes = "根据name查询用户")
+    @RequestMapping(value="/getUserInfoList",method = RequestMethod.GET)
     public BaseResult<List<UserInfo>> getUserInfoList(String name) {
         BaseResult<List<UserInfo>> result = new BaseResult<>();
         List<UserInfo> userInfoList = userInfoService.getUserInfoList(name);
