@@ -82,13 +82,13 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from user_info
     where ID = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="Long">
     delete from user_info
     where ID = #{id,jdbcType=INTEGER}
   </delete>

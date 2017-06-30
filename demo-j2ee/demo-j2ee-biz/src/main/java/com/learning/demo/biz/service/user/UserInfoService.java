@@ -21,7 +21,7 @@ public interface UserInfoService {
      * @param id
      * @return
      */
-    public UserInfo getUserInfoById(Integer id);
+    public UserInfo getUserInfoById(Long id);
 
     public void saveUserInfo(UserInfo userInfo);
     public void updateUserInfo(UserInfo userInfo);

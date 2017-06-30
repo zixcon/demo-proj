@@ -26,7 +26,7 @@ public class UserInfoController {
     @ApiOperation(value = "根据Id查询用户", notes = "第一个测试API")
     @ApiImplicitParam(name = "id", value = "id", required = true, dataType = "Integer")
     @RequestMapping("/getUserInfoById")
-    public BaseResult<UserInfo> getUserInfoById(Integer id) {
+    public BaseResult<UserInfo> getUserInfoById(Long id) {
         BaseResult<UserInfo> result = new BaseResult<>();
         UserInfo userInfo = userInfoService.getUserInfoById(id);
         result.setData(userInfo);
