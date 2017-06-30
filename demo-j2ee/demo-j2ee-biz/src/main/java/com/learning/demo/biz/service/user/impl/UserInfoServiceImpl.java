@@ -2,7 +2,7 @@ package com.learning.demo.biz.service.user.impl;
 
 import com.google.common.base.Strings;
 import com.learning.demo.biz.service.user.UserInfoService;
-import com.learning.demo.dal.dao.UserInfoMapper;
+import com.learning.demo.dal.mapper.UserInfoMapper;
 import com.learning.demo.dal.model.UserInfo;
 import com.learning.demo.dal.model.UserInfoExample;
 import org.springframework.beans.factory.annotation.Autowired;

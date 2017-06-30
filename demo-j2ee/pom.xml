@@ -179,6 +179,11 @@
       <version>${lombok.version}</version>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>fastjson</artifactId>
+      <version>1.2.9</version>
+    </dependency>
 
     <!-- json -->
     <dependency>
@@ -252,6 +257,36 @@
       <artifactId>springfox-swagger-ui</artifactId>
       <version>${swagger.version}</version>
     </dependency>
+
+      <!-- java tuples 元组-->
+      <dependency>
+          <groupId>org.javatuples</groupId>
+          <artifactId>javatuples</artifactId>
+          <version>1.2</version>
+      </dependency>
+
+      <!-- apache commons : http://commons.apache.org-->
+      <dependency>
+          <groupId>org.apache.commons</groupId>
+          <artifactId>commons-lang3</artifactId>
+          <version>3.4</version>
+      </dependency>
+      <dependency>
+          <groupId>org.apache.commons</groupId>
+          <artifactId>commons-email</artifactId>
+          <version>1.4</version>
+      </dependency>
+      <dependency>
+          <groupId>apache-httpclient</groupId>
+          <artifactId>commons-httpclient</artifactId>
+          <version>3.1</version>
+          <exclusions>
+              <exclusion>
+                  <groupId>commons-logging</groupId>
+                  <artifactId>commons-logging</artifactId>
+              </exclusion>
+          </exclusions>
+      </dependency>
 
     <dependency>
       <groupId>junit</groupId>

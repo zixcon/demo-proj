@@ -1,4 +1,4 @@
-package com.learning.demo.dal.dao;
+package com.learning.demo.dal.mapper;
 
 import com.learning.demo.dal.model.UserInfo;
 import com.learning.demo.dal.model.UserInfoExample;

@@ -11,8 +11,8 @@
         <!-- 生成的pojo，将implements Serializable-->
         <plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
 
+        <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
         <commentGenerator>
-            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
             <property name="suppressAllComments" value="true" />
         </commentGenerator>
 
@@ -45,7 +45,7 @@
 
         <!-- Mapper接口 -->
         <javaClientGenerator type="XMLMAPPER"
-                             targetPackage="com.learning.demo.dal.dao"
+                             targetPackage="com.learning.demo.dal.mapper"
                              targetProject="src/main/java">
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
