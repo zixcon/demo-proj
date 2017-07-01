@@ -36,7 +36,9 @@ public class UserInfoServiceImpl implements UserInfoService{
             criteria.andNameLike("%" + name + "%");
         }
         long count = userInfoMapper.countByExample(example);
-        // TODO 分页查询
+        example.setLimitStart(pageNo);
+        example.setLimitEnd(pageSize);
+        example.setOrderByClause(" id desc ");
         List<UserInfo> list = userInfoMapper.selectByExample(example);
         return Pair.of(count,list);
     }

@@ -245,6 +245,13 @@
       <artifactId>mybatis-generator-core</artifactId>
       <version>${mybatis-generator.version}</version>
     </dependency>
+      <dependency>
+          <groupId>com.learning.common.mybatis</groupId>
+          <artifactId>mybatis-generate-plugin</artifactId>
+          <version>1.0-SNAPSHOT</version>
+          <scope>system</scope>
+          <systemPath>/Users/topaz/Documents/dev/git/learning/learngit/demo-proj/demo-common/mybatis-generate-plugin/target/mybatis-generate-plugin-1.0-SNAPSHOT.jar</systemPath>
+      </dependency>
 
     <!-- swagger -->
     <dependency>
