@@ -36,10 +36,6 @@
       <groupId>org.mybatis.generator</groupId>
       <artifactId>mybatis-generator-core</artifactId>
     </dependency>
-    <dependency>
-      <groupId>com.learning.common.mybatis</groupId>
-      <artifactId>mybatis-generate-plugin</artifactId>
-    </dependency>
 
     <!-- druid -->
     <dependency>
@@ -77,6 +73,7 @@
             <artifactId>mybatis-generator-core</artifactId>
             <version>${mybatis-generator.version}</version>
           </dependency>
+          <!-- 引入mybatis 自定义插件，引入 本地依赖jar包 -->
           <dependency>
             <groupId>com.learning.common.mybatis</groupId>
             <artifactId>mybatis-generate-plugin</artifactId>
