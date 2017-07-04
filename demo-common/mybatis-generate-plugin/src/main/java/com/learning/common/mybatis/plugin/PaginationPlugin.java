@@ -96,6 +96,7 @@ public class PaginationPlugin extends PluginAdapter {
 
     }
 
+    /*
     public static void main(String[] args) {
 
         String config= PaginationPlugin.class.getClassLoader().getResource("generatorConfig.xml").getFile();
@@ -105,4 +106,5 @@ public class PaginationPlugin extends PluginAdapter {
         ShellRunner.main(arg);
 
     }
+    */
 }

@@ -6,6 +6,7 @@ import org.joda.time.Days;
 import org.joda.time.LocalDate;
 
 import java.math.BigDecimal;
+import java.text.MessageFormat;
 
 /**
  * Hello world!
@@ -59,5 +60,9 @@ public class App
         System.out.println( "bamount3= " + bamount3);
         System.out.println( "bamount4= " + bamount4);
         System.out.println( "bamount5= " + bamount5);
+
+        String temp = "dfasdf{0}sdfasdf{1}sdf";
+        String ss = MessageFormat.format(temp,1,2);
+        System.out.println(ss);
     }
 }

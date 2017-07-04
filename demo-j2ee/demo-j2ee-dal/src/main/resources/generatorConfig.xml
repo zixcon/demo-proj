@@ -8,22 +8,32 @@
     <properties resource="jdbc.properties" />
 
     <context id="baseTradeTables" targetRuntime="MyBatis3">
+
+        <property name="javaFileEncoding" value="UTF-8"/>
         <!-- 生成的pojo，将implements Serializable-->
         <plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
         <plugin type="org.mybatis.generator.plugins.ToStringPlugin"></plugin>
 
+        <!-- 自定义分页插件 -->
         <plugin type="com.learning.common.mybatis.plugin.PaginationPlugin"></plugin>
 
         <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
-        <commentGenerator>
+        <!--<commentGenerator>
             <property name="suppressAllComments" value="true" />
-        </commentGenerator>
+        </commentGenerator>-->
+        <!-- 自定义注解 --><!--
+        <commentGenerator type="com.learning.common.mybatis.generator.CustomCommentGenerator"/>-->
 
         <!-- 数据库地址、用户名、密码 -->
         <jdbcConnection driverClass="${jdbc.driverClassName}"
                         connectionURL="${jdbc.url}"
                         userId="${jdbc.username}"
                         password="${jdbc.password}">
+            <!-- 解决： introspectedColumn.getRemarks()获取不到字段的注释问题 -->
+            <!-- 针对oracle数据库 -->
+            <!-- <property name="remarksReporting" value="true"></property> -->
+            <!-- 针对mysql数据库 -->
+            <property name="useInformationSchema" value="true"></property>
         </jdbcConnection>
 
         <!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer
