@@ -5,6 +5,7 @@ import com.learning.demo.dal.model.UserInfo;
 import com.learning.demo.web.global.entity.BaseResult;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,7 +21,7 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserInfoController {
 
-    @Resource
+    @Autowired
     private UserInfoService userInfoService;
 
     @ApiOperation(value = "根据Id查询用户", notes = "第一个测试API")

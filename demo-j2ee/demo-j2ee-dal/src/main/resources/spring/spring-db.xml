@@ -69,7 +69,7 @@
     <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <!-- 扫描包路径,如果需要扫描多个包中间用半角逗号隔开 -->
         <!-- 为spring自扫描所有dao包并把其下的所有mybatis接口文件装配入容器 -->
-        <property name="basePackage" value="com.learning.demo.dal.dao"/>
+        <property name="basePackage" value="com.learning.demo.dal.mapper"/>
         <!-- 这边不能使用ref="sqlSessionFactory"原因是因为上面加载配置文件导致这边引用会报错 -->
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
     </bean>

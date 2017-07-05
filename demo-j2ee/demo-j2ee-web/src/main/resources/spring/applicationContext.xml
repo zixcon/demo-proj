@@ -11,4 +11,6 @@
 
     <import resource="classpath*:spring/spring-tx.xml"/>
     <import resource="classpath*:spring/spring-async.xml"/>
+
+    <import resource="classpath*:spring/spring-kafka.xml"/>
 </beans>

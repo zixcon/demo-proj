@@ -46,10 +46,18 @@
     </aop:config>
 
     <!--  1. 申明事物 ：end -->
+
+
+
     <!--  2. 注解事物 ：start -->
 
-    <!-- enable the configuration of transactional behavior based on annotations -->
-    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <!-- 开启注解式事物，需要依赖spring-aspects包 -->
+    <tx:annotation-driven transaction-manager="transactionManager" mode="aspectj" proxy-target-class="true"/>
+    <!-- 或者 （使用第一种配置时，spring实际上就会创建一个第二种配置的一个bean，并交由spring进行初始化）
+        <bean class="org.springframework.transaction.aspectj.AnnotationTransactionAspect" factory-method="aspectOf">
+            <property name="transactionManager" ref="transactionManager"/>
+        </bean>
+    -->
 
     <!--  2. 注解事物 ：end -->
 
