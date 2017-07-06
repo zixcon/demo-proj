@@ -34,3 +34,10 @@ GitHub远程仓库中的README.md文件不在本地仓库中。
 解决方案：
 $ git pull --rebase origin master
 $ git push -u origin master
+
+## 其他问题
+#### 使用一段时间后，或者电脑重启后没有权限
+问题：Permission denied (publickey). fatal: Could not read from remote repository
+> ssh-add ~/.ssh/id_rsa
+> #and, to confirm it's been added to the known list of keys
+> ssh-add -l
