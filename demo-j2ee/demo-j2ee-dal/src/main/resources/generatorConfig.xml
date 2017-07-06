@@ -10,6 +10,7 @@
     <context id="baseTradeTables" targetRuntime="MyBatis3">
 
         <property name="javaFileEncoding" value="UTF-8"/>
+
         <!-- 生成的pojo，将implements Serializable-->
         <plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
         <plugin type="org.mybatis.generator.plugins.ToStringPlugin"></plugin>
@@ -21,8 +22,10 @@
         <!--<commentGenerator>
             <property name="suppressAllComments" value="true" />
         </commentGenerator>-->
-        <!-- 自定义注解 --><!--
-        <commentGenerator type="com.learning.common.mybatis.generator.CustomCommentGenerator"/>-->
+        <!-- 自定义注解 --><!-- -->
+        <commentGenerator type="com.learning.common.mybatis.generator.CustomCommentGenerator">
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
 
         <!-- 数据库地址、用户名、密码 -->
         <jdbcConnection driverClass="${jdbc.driverClassName}"
