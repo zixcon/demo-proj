@@ -50,14 +50,74 @@
 
 
     <!--  2. 注解事物 ：start -->
+    <!--
+        Lombok 和 Aspectj事物冲突问题
+        1.
+        大量使用了@Data @Slf4j等lombok注解。
+        在使用
+        <aop:aspectj-autoproxy proxy-target-class=“true"/>
+        <tx:annotation-driven transaction-manager=“transactionManager" mode=“aspectj”/>
+        的时候，需要对静态织入才行。但是两者都是需要通过javac对class文件进行修改，两者不能共存，导致事物切入时，对所引入的所有的@Data @Slf4j注解都报错找不到对应的get set方法和 log。
+
+
+        Maven配置（<build>）：
+        <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>aspectj-maven-plugin</artifactId>
+            <version>1.9</version>
+            <configuration>
+                <showWeaveInfo>true</showWeaveInfo>
+                <forceAjcCompile>true</forceAjcCompile>
+                <weaveDirectories>
+                    <weaveDirectory>${project.build.directory}/classes</weaveDirectory>
+                </weaveDirectories>
+                <aspectLibraries>
+                    <aspectLibrary>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>spring-aspects</artifactId>
+                    </aspectLibrary>
+                </aspectLibraries>
+                <complianceLevel>1.7</complianceLevel>
+                <source>1.7</source>
+                <target>1.7</target>
+            </configuration>
+            <dependencies>
+                <dependency>
+                    <groupId>org.aspectj</groupId>
+                    <artifactId>aspectjweaver</artifactId>
+                    <version>1.8.10</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.aspectj</groupId>
+                    <artifactId>aspectjrt</artifactId>
+                    <version>1.8.10</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.aspectj</groupId>
+                    <artifactId>aspectjtools</artifactId>
+                    <version>1.8.9</version>
+                </dependency>
+            </dependencies>
+            <executions>
+                <execution>
+                    <phase>process-classes</phase>
+                    <goals>
+                        <goal>compile</goal>
+                    </goals>
+                </execution>
+            </executions>
+
+        </plugin>
+
+
+        解决办法：
+        1. 事物代理如下
+        <tx:annotation-driven transaction-manager=“transactionManager"/>
+    -->
 
     <!-- 开启注解式事物，需要依赖spring-aspects包 -->
-    <tx:annotation-driven transaction-manager="transactionManager" mode="aspectj" proxy-target-class="true"/>
-    <!-- 或者 （使用第一种配置时，spring实际上就会创建一个第二种配置的一个bean，并交由spring进行初始化）
-        <bean class="org.springframework.transaction.aspectj.AnnotationTransactionAspect" factory-method="aspectOf">
-            <property name="transactionManager" ref="transactionManager"/>
-        </bean>
-    -->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+    <tx:annotation-driven transaction-manager="transactionManager"/>
 
     <!--  2. 注解事物 ：end -->
 
