@@ -24,8 +24,6 @@ public class LogServiceInterceptor implements MethodInterceptor{
 	        	<list>
 		            <value>*Service</value>
 		            <value>*ServiceImpl</value>
-		            <value>*Client</value>
-		            <value>*ClientImpl</value>
 	        	</list>
 	        </property>
     	</bean>
