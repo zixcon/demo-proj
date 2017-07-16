@@ -20,6 +20,7 @@
   <modules>
     <module>mybatis-generate-plugin</module>
     <module>demo-thrift-client</module>
+    <module>demo-thrift-server</module>
   </modules>
 
   <dependencyManagement>

@@ -110,7 +110,7 @@ public class ThriftServerAddressProviderZookeeper implements ThriftServerAddress
                     logger.error("thrift server-cluster error....");
                     return;
                 }
-                List<InetSocketAddress> current = new ArrayList<InetSocketAddress>();
+                List<InetSocketAddress> current = new ArrayList<>();
                 String path = null;
                 for (ChildData data : children) {
                     path = data.getPath();
