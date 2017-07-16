@@ -13,19 +13,25 @@
     </bean>
     -->
 
-    <!-- zookeeper -->
-    <bean id="thriftZookeeper" class="com.demo.thrift.zookeeper.ZookeeperFactory" destroy-method="close">
-        <property name="connectString" value="127.0.0.1:2181"></property>
-        <property name="namespace" value="demo/thrift-service"></property>
+    <!-- zookeeper   -->
+    <bean id="thriftZookeeper" class="com.learning.thrift.ZookeeperFactory"
+          destroy-method="close">
+        <property name="zkHosts"
+                  value="192.168.36.54:2181,192.168.36.99:2181,192.168.36.189:2181" />
+        <property name="namespace" value="cn.slimsmart.thrift.rpc.demo" />
+        <property name="connectionTimeout" value="3000" />
+        <property name="sessionTimeout" value="3000" />
+        <property name="singleton" value="true" />
     </bean>
-    <bean id="userService" class="com.demo.thrift.ThriftServiceClientProxyFactory" destroy-method="close">
-        <property name="service" value="com.demo.service.UserService"></property>
-        <property name="maxActive" value="5"></property>
-        <property name="idleTime" value="1800000"></property>
-        <property name="addressProvider">
-            <bean class="com.demo.thrift.support.impl.DynamicAddressProvider">
-                <property name="configPath" value="UserServiceImpl"></property>
-                <property name="zookeeper" ref="thriftZookeeper"></property>
+
+    <bean id="echoSerivce" class="com.learning.thrift.ThriftServiceClientProxyFactory" destroy-method="close">
+        <property name="maxActive" value="5" />
+        <property name="idleTime" value="1800000" />
+        <property name="serverAddressProvider">
+            <bean class="com.learning.thrift.ThriftServerAddressProviderZookeeper">
+                <property name="service" value="cn.slimsmart.thrift.rpc.demo.EchoSerivce" />
+                <property name="version" value="1.0.0" />
+                <property name="zkClient" ref="thriftZookeeper" />
             </bean>
         </property>
     </bean>

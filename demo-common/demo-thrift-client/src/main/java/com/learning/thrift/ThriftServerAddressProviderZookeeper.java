@@ -6,30 +6,32 @@ import org.apache.curator.framework.recipes.cache.ChildData;
 import org.apache.curator.framework.recipes.cache.PathChildrenCache;
 import org.apache.curator.framework.recipes.cache.PathChildrenCacheEvent;
 import org.apache.curator.framework.recipes.cache.PathChildrenCacheListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 
 import java.net.InetSocketAddress;
 import java.util.*;
 
 /**
- * 可以动态获取address地址,方案设计参考
- * 1) 可以间歇性的调用一个web-service来获取地址
- * 2) 可以使用事件监听机制,被动的接收消息,来获取最新的地址(比如基于MQ,nio等)
- * 3) 可以基于zookeeper-watcher机制,获取最新地址
- * <p/>
- * 本实例,使用zookeeper作为"config"中心,使用apache-curator方法库来简化zookeeper开发
- * 如下实现,仅供参考
+ * 基于zookeeper服务地址自动发现
+ * Created by topaz on 2017/7/16.
  */
-public class DynamicAddressProvider implements ThriftServerAddressProvider, InitializingBean {
+public class ThriftServerAddressProviderZookeeper implements ThriftServerAddressProvider, InitializingBean {
 
-    private String configPath;
+    private Logger logger = LoggerFactory.getLogger(getClass());
+
+    // 注册服务
+    private String service;
+    // 服务版本号
+    private String version = "1.0.0";
 
     private PathChildrenCache cachedPath;
 
-    private CuratorFramework zookeeper;
+    private CuratorFramework zkClient;
 
-    //用来保存当前provider所接触过的地址记录
-    //当zookeeper集群故障时,可以使用trace中地址,作为"备份"
+    // 用来保存当前provider所接触过的地址记录
+    // 当zookeeper集群故障时,可以使用trace中地址,作为"备份"
     private Set<String> trace = new HashSet<String>();
 
     private final List<InetSocketAddress> container = new ArrayList<InetSocketAddress>();
@@ -38,44 +40,62 @@ public class DynamicAddressProvider implements ThriftServerAddressProvider, Init
 
     private Object lock = new Object();
 
-    private static final Integer DEFAULT_PRIORITY = 1;
+    // 默认权重
+    private static final Integer DEFAULT_WEIGHT = 1;
 
-    public void setConfigPath(String configPath) {
-        this.configPath = configPath;
+    public void setService(String service) {
+        this.service = service;
     }
 
-    public void setZookeeper(CuratorFramework zookeeper) {
-        this.zookeeper = zookeeper;
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
+    public ThriftServerAddressProviderZookeeper() {
+    }
+
+    public ThriftServerAddressProviderZookeeper(CuratorFramework zkClient) {
+        this.zkClient = zkClient;
+    }
+
+    public void setZkClient(CuratorFramework zkClient) {
+        this.zkClient = zkClient;
     }
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        //如果zk尚未启动,则启动
-        if (zookeeper.getState() == CuratorFrameworkState.LATENT) {
-            zookeeper.start();
+        // 如果zk尚未启动,则启动
+        if (zkClient.getState() == CuratorFrameworkState.LATENT) {
+            zkClient.start();
         }
-        buildPathChildrenCache(zookeeper, configPath, true);
+        buildPathChildrenCache(zkClient, getServicePath(), true);
         cachedPath.start(PathChildrenCache.StartMode.POST_INITIALIZED_EVENT);
     }
 
-    private void buildPathChildrenCache(CuratorFramework client, String path, Boolean cacheData) throws Exception {
+    private String getServicePath() {
+        return "/" + service + "/" + version;
+    }
+
+    private void buildPathChildrenCache(final CuratorFramework client, String path, Boolean cacheData) throws Exception {
         cachedPath = new PathChildrenCache(client, path, cacheData);
         cachedPath.getListenable().addListener(new PathChildrenCacheListener() {
             @Override
             public void childEvent(CuratorFramework client, PathChildrenCacheEvent event) throws Exception {
                 PathChildrenCacheEvent.Type eventType = event.getType();
                 switch (eventType) {
-//                    case CONNECTION_RECONNECTED:
-//
-//                        break;
+                    case CONNECTION_RECONNECTED:
+                        logger.info("Connection is reconection.");
+                        break;
                     case CONNECTION_SUSPENDED:
+                        logger.info("Connection is suspended.");
+                        break;
                     case CONNECTION_LOST:
-                        System.out.println("Connection error,waiting...");
+                        logger.warn("Connection error,waiting...");
                         return;
                     default:
                         //
                 }
-                //任何节点的时机数据变动,都会rebuild,此处为一个"简单的"做法.
+                // 任何节点的时机数据变动,都会rebuild,此处为一个"简单的"做法.
                 cachedPath.rebuild();
                 rebuild();
             }
@@ -83,16 +103,21 @@ public class DynamicAddressProvider implements ThriftServerAddressProvider, Init
             protected void rebuild() throws Exception {
                 List<ChildData> children = cachedPath.getCurrentData();
                 if (children == null || children.isEmpty()) {
-                    //有可能所有的thrift server都与zookeeper断开了链接
-                    //但是,有可能,thrift client与thrift server之间的网络是良好的
-                    //因此此处是否需要清空container,是需要多方面考虑的.
+                    // 有可能所有的thrift server都与zookeeper断开了链接
+                    // 但是,有可能,thrift client与thrift server之间的网络是良好的
+                    // 因此此处是否需要清空container,是需要多方面考虑的.
                     container.clear();
-                    System.out.println("thrift server-cluster error....");
+                    logger.error("thrift server-cluster error....");
                     return;
                 }
                 List<InetSocketAddress> current = new ArrayList<InetSocketAddress>();
+                String path = null;
                 for (ChildData data : children) {
-                    String address = new String(data.getData(), "utf-8");
+                    path = data.getPath();
+                    logger.debug("get path:" + path);
+                    path = path.substring(getServicePath().length() + 1);
+                    logger.debug("get serviceAddress:" + path);
+                    String address = new String(path.getBytes(), "utf-8");
                     current.addAll(transfer(address));
                     trace.add(address);
                 }
@@ -108,25 +133,24 @@ public class DynamicAddressProvider implements ThriftServerAddressProvider, Init
         });
     }
 
-
     private List<InetSocketAddress> transfer(String address) {
         String[] hostname = address.split(":");
-        Integer priority = DEFAULT_PRIORITY;
+        Integer weight = DEFAULT_WEIGHT;
         if (hostname.length == 3) {
-            priority = Integer.valueOf(hostname[2]);
+            weight = Integer.valueOf(hostname[2]);
         }
         String ip = hostname[0];
         Integer port = Integer.valueOf(hostname[1]);
         List<InetSocketAddress> result = new ArrayList<InetSocketAddress>();
-        for (int i = 0; i < priority; i++) {
+        // 根据优先级，将ip：port添加多次到地址集中，然后随机取地址实现负载
+        for (int i = 0; i < weight; i++) {
             result.add(new InetSocketAddress(ip, port));
         }
         return result;
     }
 
-
     @Override
-    public List<InetSocketAddress> getAll() {
+    public List<InetSocketAddress> findServerAddressList() {
         return Collections.unmodifiableList(container);
     }
 
@@ -145,17 +169,21 @@ public class DynamicAddressProvider implements ThriftServerAddressProvider, Init
                 }
             }
         }
-        return inner.poll();//null
+        return inner.poll();
     }
-
 
     @Override
     public void close() {
         try {
             cachedPath.close();
-            zookeeper.close();
+            zkClient.close();
         } catch (Exception e) {
-            //
         }
     }
+
+    @Override
+    public String getService() {
+        return service;
+    }
+
 }
