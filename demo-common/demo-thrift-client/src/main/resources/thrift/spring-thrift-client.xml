@@ -16,22 +16,21 @@
     <!-- zookeeper   -->
     <bean id="thriftZookeeper" class="com.learning.thrift.ZookeeperFactory"
           destroy-method="close">
-        <property name="zkHosts"
-                  value="192.168.36.54:2181,192.168.36.99:2181,192.168.36.189:2181" />
-        <property name="namespace" value="cn.slimsmart.thrift.rpc.demo" />
-        <property name="connectionTimeout" value="3000" />
-        <property name="sessionTimeout" value="3000" />
-        <property name="singleton" value="true" />
+        <property name="zkHosts" value="192.168.36.54:2181,192.168.36.99:2181,192.168.36.189:2181"/>
+        <property name="namespace" value="com.learning.thrift"/>
+        <property name="connectionTimeout" value="3000"/>
+        <property name="sessionTimeout" value="3000"/>
+        <property name="singleton" value="true"/>
     </bean>
 
     <bean id="echoSerivce" class="com.learning.thrift.ThriftServiceClientProxyFactory" destroy-method="close">
-        <property name="maxActive" value="5" />
-        <property name="idleTime" value="1800000" />
+        <property name="maxActive" value="5"/>
+        <property name="idleTime" value="1800000"/>
         <property name="serverAddressProvider">
             <bean class="com.learning.thrift.ThriftServerAddressProviderZookeeper">
-                <property name="service" value="cn.slimsmart.thrift.rpc.demo.EchoSerivce" />
-                <property name="version" value="1.0.0" />
-                <property name="zkClient" ref="thriftZookeeper" />
+                <property name="service" value="cn.slimsmart.thrift.rpc.demo.EchoSerivce"/>
+                <property name="version" value="1.0.0"/>
+                <property name="zkClient" ref="thriftZookeeper"/>
             </bean>
         </property>
     </bean>
