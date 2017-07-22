@@ -1,0 +1,9 @@
+spring:
+  profiles:
+    active: dev
+
+banner:
+  charset: UTF-8 # Banner file encoding.
+  location: classpath:banner.txt # Banner file location.
+  image:
+    location: classpath:banner.gif # Banner image file location (jpg/png can also be used).
