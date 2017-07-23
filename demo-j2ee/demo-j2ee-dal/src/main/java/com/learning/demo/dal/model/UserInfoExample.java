@@ -88,7 +88,7 @@ public class UserInfoExample {
     /**
      * user_info
      * 
-     * 创建于：2017-07-06 22:25:04
+     * 创建于：2017-07-23 09:52:03
     */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -411,7 +411,7 @@ public class UserInfoExample {
     /**
      * user_info
      * 
-     * 创建于：2017-07-06 22:25:04
+     * 创建于：2017-07-23 09:52:03
     */
     public static class Criteria extends GeneratedCriteria {
 
@@ -423,7 +423,7 @@ public class UserInfoExample {
     /**
      * user_info
      * 
-     * 创建于：2017-07-06 22:25:04
+     * 创建于：2017-07-23 09:52:03
     */
     public static class Criterion {
         private String condition;

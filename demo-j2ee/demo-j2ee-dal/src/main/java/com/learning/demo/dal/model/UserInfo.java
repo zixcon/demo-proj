@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * user_info
  * 
- * 创建于：2017-07-06 22:25:04
+ * 创建于：2017-07-23 09:52:03
 */
 public class UserInfo implements Serializable {
     /**
