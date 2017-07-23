@@ -1,9 +1,16 @@
+banner:
+  main:
+    banner-mode: "off"
+  charset: UTF-8 # Banner file encoding.
+  location: classpath:banner.txt # Banner file location.
+#  image:
+#    location: classpath:banner.gif # Banner image file location (jpg/png can also be used).
+
+server:
+#  port: ${OPENSHIFT_DIY_PORT}
+#  address: ${OPENSHIFT_DIY_IP}
+  port: 8080
+
 spring:
   profiles:
     active: dev
-
-banner:
-  charset: UTF-8 # Banner file encoding.
-  location: classpath:banner.txt # Banner file location.
-  image:
-    location: classpath:banner.gif # Banner image file location (jpg/png can also be used).

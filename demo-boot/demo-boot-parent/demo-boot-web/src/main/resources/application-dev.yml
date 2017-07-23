@@ -1,7 +1,7 @@
 # http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#common-application-properties
-mysql:
+spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/demo
+    url: jdbc:mysql://192.168.10.159:3306/mydemo?characterEncoding=UTF-8
     username: root
     password: 123456

@@ -1,10 +1,10 @@
 package com.learning.boot.web.config;
 
+import com.alibaba.druid.pool.DruidDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
@@ -28,16 +28,17 @@ public class DBConfig {
     @Bean
     @Primary //Spring Boot Jdbc的自动配置过程中，会对于开发者透明地使用dataSource进行一些相关配置，所以当有两个Datasource实现类时，Spring Boot将无法确定使用哪一个。
     public DataSource dataSource() {
-//        DruidDataSource druidDataSource = new DruidDataSource();
-//        druidDataSource.setUrl(dbProperties.getUrl());
-//        druidDataSource.setUsername(dbProperties.getUsername());
-//        druidDataSource.setPassword(dbProperties.getPassword());
-//        return druidDataSource;
-        DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
-        dataSourceBuilder.url(dbProperties.getUrl());
-        dataSourceBuilder.username(dbProperties.getPassword());
-        dataSourceBuilder.password(dbProperties.getPassword());
-        return dataSourceBuilder.build();
+        DruidDataSource druidDataSource = new DruidDataSource();
+        druidDataSource.setUrl(dbProperties.getUrl());
+        druidDataSource.setUsername(dbProperties.getUsername());
+        druidDataSource.setPassword(dbProperties.getPassword());
+        return druidDataSource;
+//        DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
+//        dataSourceBuilder.driverClassName(dbProperties.getDriverClassName());
+//        dataSourceBuilder.url(dbProperties.getUrl());
+//        dataSourceBuilder.username(dbProperties.getPassword());
+//        dataSourceBuilder.password(dbProperties.getPassword());
+//        return dataSourceBuilder.build();
     }
 
     @Bean
@@ -45,7 +46,7 @@ public class DBConfig {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(dataSource);
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-        Resource[] mapperLocations = resolver.getResources("classpath:mapper/*Mapper.xml");
+        Resource[] mapperLocations = resolver.getResources("classpath*:mapper/*Mapper.xml");
         sqlSessionFactoryBean.setMapperLocations(mapperLocations);
         sqlSessionFactoryBean.setTypeAliasesPackage("com.learning.boot.dal.model");
         return sqlSessionFactoryBean.getObject();
