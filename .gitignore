@@ -11,3 +11,7 @@
 # proj 
 */target/
 */*/target/
+
+#mvn
+.mvn/
+*/.mvn

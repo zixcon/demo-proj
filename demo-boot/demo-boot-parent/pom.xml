@@ -30,6 +30,7 @@
 
     <modules>
         <module>demo-boot-web</module>
+        <module>demo-boot-jar</module>
     </modules>
 
     <dependencyManagement>

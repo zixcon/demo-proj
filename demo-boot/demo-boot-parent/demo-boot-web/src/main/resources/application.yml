@@ -9,7 +9,7 @@ banner:
 server:
 #  port: ${OPENSHIFT_DIY_PORT}
 #  address: ${OPENSHIFT_DIY_IP}
-  port: 8080
+  port: 8089
 
 spring:
   profiles:
