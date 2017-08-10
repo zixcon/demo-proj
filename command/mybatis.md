@@ -8,6 +8,12 @@ mybatis-generate插件自动生成mapper接口／entity／mapper文件
 >   删除该命令生成的所有文件，mvn clean后，重新生成，就正常了。
     
 2. mybatis-config.xml文件
-<property name="configLocation" value="classpath:mybatis/mybatis-config.xml"/>
+<property name="configLocation" value="classpath:mybatis/mybatis-configuration.xml"/>
 
 >  文件内容无所谓，但文件必须得有，这是SqlSessionFactoryBean校验的
+
+3. mybatis-configuration.xml
+> 开启sql打印
+>   <settings>
+>		<setting name="logImpl" value="STDOUT_LOGGING" />
+>	</settings>
