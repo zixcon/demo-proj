@@ -97,6 +97,12 @@
             <artifactId>springfox-swagger-ui</artifactId>
         </dependency>
 
+        <!-- 监控 -->
+        <dependency>
+            <groupId>io.dropwizard.metrics</groupId>
+            <artifactId>metrics-core</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
