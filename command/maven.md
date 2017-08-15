@@ -22,6 +22,9 @@
 #### 打包maven项目（跳过test）：
 `mvn install -Dmaven.test.skip=true`
 
+#### 使用本地Arche文件，避免从官网下载很慢
+`mvn archetype:generate -DarchetypeCatalog=local`
+
 #### 已有的Archetypes
 | Archetype ID| 说明           |
 | -------------- |:--------------:|
