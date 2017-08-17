@@ -25,6 +25,9 @@
 #### 使用本地Arche文件，避免从官网下载很慢
 `mvn archetype:generate -DarchetypeCatalog=local`
 
+#### maven排除jar包依赖冲突
+> mvn dependency:tree -Dverbose
+
 #### 已有的Archetypes
 | Archetype ID| 说明           |
 | -------------- |:--------------:|
