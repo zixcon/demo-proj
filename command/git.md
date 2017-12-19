@@ -35,6 +35,11 @@ GitHub远程仓库中的README.md文件不在本地仓库中。
 $ git pull --rebase origin master
 $ git push -u origin master
 
+## 6. merge合并
+    git checkout targetBranch  //切换回targetBranch
+    git merge --no-ff sourceBranch  //把sourceBranch的修改merge到targetBranch。注意：建议merge的时候总是用 --no-ff 选项
+    –no-ff 可以保存你之前的分支历史。能够更好的查看 merge历史,以及branch 状态。
+
 ## 其他问题
 #### 使用一段时间后，或者电脑重启后没有权限
 问题：Permission denied (publickey). fatal: Could not read from remote repository
